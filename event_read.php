@@ -1,13 +1,15 @@
 <?php
-// session_start();
-
+session_start();
 include("functions.php");
-// check_session_id();
+check_session_id();
+
+$user_id = $_SESSION["id"];
 
 $pdo = connect_to_db();
 
-$user_id = $_SESSION["id"];
+
 $sql = 'SELECT * FROM event_table LEFT OUTER JOIN (SELECT event_id, COUNT(id) AS cnt FROM likes GROUP BY event_id) AS likes ON event_table.id = likes.event_id';
+
 $stmt = $pdo->prepare($sql);
 $status = $stmt->execute();
 
@@ -21,10 +23,10 @@ if ($status == false) {
   foreach ($result as $record) {
     $output .= "<tr>";
     $output .= "<td>{$record["event"]}</td>";
+    $output .= "<td><img src='{$record["image"]}' height=150px></td>";
     $output .= "<td>{$record["description"]}</td>";
     $output .= "<td>{$record["category"]}</td>";
     $output .= "<td>{$record["event_area"]}</td>";
-    $output .= "<td>{$record["event_url"]}</td>";
     $output .= "<td>{$record["address"]}</td>";
     $output .= "<td>{$record["person"]}</td>";
     $output .= "<td>{$record["hour"]}</td>";
@@ -43,7 +45,7 @@ if ($status == false) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DB連携型todoリスト（一覧画面）</title>
+  <title>イベントリスト</title>
 </head>
 
 <body>
@@ -58,7 +60,6 @@ if ($status == false) {
           <th>イベント内容</th>
           <th>カテゴリー</th>
           <th>開催エリア</th>
-          <th>イベントURL</th>
           <th>集合場所</th>
           <th>人数</th>
           <th>イベント時間</th>

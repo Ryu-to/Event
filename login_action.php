@@ -1,7 +1,7 @@
 <?php
 // var_dump($val);
 // exit();
-// session_start(); 
+session_start(); 
 include('functions.php');
 
 $pdo = connect_to_db(); 

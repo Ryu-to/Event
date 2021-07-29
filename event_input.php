@@ -15,13 +15,16 @@ check_session_id();
 </head>
 
 <body>
-  <form action="event_create.php" method="POST">
+  <form action="create_file.php" method="POST" enctype="multipart/form-data">
     <fieldset>
       <legend></legend>
       <a href="event_read.php">一覧</a>
       <a href="logout.php">logout</a>
       <div>
         event: <input type="text" name="event">
+      </div>
+      <div>
+        <input type="file" name="upfile" accept="image/*" capture="camera">
       </div>
       <div>
         description: <input type="text" name="description">
@@ -31,9 +34,6 @@ check_session_id();
       </div>
       <div>
         event_area: <input type="text" name="event_area">
-      </div>
-      <div>
-        event_url: <input type="text" name="event_url">
       </div>
       <div>
         address: <input type="text" name="address">
